@@ -198,12 +198,12 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-	printf("before TIM\r\n");
-	HAL_TIM_Base_Start(&htim1);//tim1 init
+	//printf("before TIM\r\n");
+	//HAL_TIM_Base_Start(&htim1);//tim1 init
 	//HAL_TIM_Base_Start(&htim2);//tim2 init
 	// printf("before ADC\r\n");
 
-	HAL_ADC_Start_DMA(&hadc1,g_adc1_dma_data1,ADC_DATA_LENGTH);
+	//HAL_ADC_Start_DMA(&hadc1,g_adc1_dma_data1,ADC_DATA_LENGTH);
 	// printf("after ADC\r\n");
 
 	

@@ -583,7 +583,7 @@ void print4serial(void)
 	{
 		uart_rx_len=USART4_RX_STA&0x3fff;
 		Serial_printf("\r\nsent data:\r\n");
-//		HAL_UART_Transmit(&huart4,(uint8_t*)USART_RX_BUF,uart_rx_len,1000);  //Original print
+//		HAL_UART_Transmit(huart_debug,(uint8_t*)USART_RX_BUF,uart_rx_len,1000);  //Original print
 
 		Serial_SendArr((uint8_t*)USART4_RX_BUF,uart_rx_len);
 
@@ -596,7 +596,7 @@ void print4serial(void)
 		/*---Send the array to display message---*/
 		Screen_SendArrToShow((uint8_t*)USART4_RX_BUF,uart_rx_len,FB_OFF);
 		Serial_printf("\r\n");
-		while(__HAL_UART_GET_FLAG(&huart4,UART_FLAG_TC)!=SET);		
+		while(__HAL_UART_GET_FLAG(huart_debug,UART_FLAG_TC)!=SET);		
 		USART4_RX_STA=0;
 	}
 }
@@ -611,7 +611,7 @@ void print4screen(void)
 		Serial_printf("\r\ndata from screen:\r\n");
 		Serial_SendArr((uint8_t*)USART5_RX_BUF,uart_rx_len);
 		Serial_printf("\r\n");
-		while(__HAL_UART_GET_FLAG(&huart5,UART_FLAG_TC)!=SET);		
+		while(__HAL_UART_GET_FLAG(huart_screen,UART_FLAG_TC)!=SET);		
 		USART5_RX_STA=0;
 	}
 }
