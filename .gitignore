@@ -1,0 +1,7 @@
+build/
+cmake-build-debug-mingw-stm32/
+cmake-build-debug-stm32cubeclt/
+.idea/workspace.xml
+.idea/debugServers
+.idea/editor.xml
+.idea/.name
