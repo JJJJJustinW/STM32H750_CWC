@@ -12,7 +12,7 @@ uint8_t tmp_Byte=0;//Used to avoid empty pointer
 /*---------------------------UART SEND------------------------------*/
 //////////////////////////////////////////////////////////////////////
 /*
- * Send uint8_t content to UART4(huart_debug).
+ * Send uint8_t content to USART1(huart_debug).
  */
 void Serial_SendByte(uint8_t Byte)
 {
@@ -38,7 +38,7 @@ void Serial_SendByte_t(uint8_t Byte,UART_HandleTypeDef *huart)
 
 
 /*
-Send arrays of uint8_t items to UART4.
+Send arrays of uint8_t items to UART_DEBUG.
 */
 void Serial_SendArr(uint8_t *array,uint16_t length)
 {
@@ -94,7 +94,7 @@ uint32_t Serial_Power(uint32_t base,uint32_t exp)
 }
 
 /*
-Send Numbers to UART4 port
+Send Numbers to UART_DEBUG port
 */
 void Serial_SendNum(uint32_t num)
 {
@@ -115,7 +115,7 @@ void Serial_SendNum(uint32_t num)
 
 
 /*
-Send strings to UART4 port
+Send strings to UART_DEBUG port
 */
 void Serial_SendStr(char *string)
 {
@@ -211,7 +211,7 @@ void Serial_printf_t(UART_HandleTypeDef *huart, const char *formatted,...)
 	va_end(args);
 	Serial_SendStr_t(String,huart);
 
-	//Send to UART4
+	//Send to UART_DEBUG
 	Serial_SendStr(String);
 }
 
@@ -226,7 +226,7 @@ void Serial_printf_t(UART_HandleTypeDef *huart, const char *formatted,...)
 void Screen_SendArr(uint8_t *array,uint16_t length)
 {
 	
-	//FEEDBACK TO UART4
+	//FEEDBACK TO UART_DEBUG
 	Serial_SendStr_t("\r\nSent to screen:\r\n",huart_debug);
 	for(uint16_t itor_sndarr=0;itor_sndarr<length;itor_sndarr++)
 	{
@@ -238,7 +238,7 @@ void Screen_SendArr(uint8_t *array,uint16_t length)
 	Serial_SendStr_t("\r\n",huart_debug);
 	
 	
-	//SEND TO UART5
+	//SEND TO UART_SCREEN
 	for(uint16_t itor_scrsndarr=0;itor_scrsndarr<length;itor_scrsndarr++)
 	{
 		Serial_SendByte_t(array[itor_scrsndarr],huart_screen);
@@ -250,12 +250,12 @@ void Screen_SendArr(uint8_t *array,uint16_t length)
 
 /*
  * Send an array to UART5(serial screen)'s display message(integrated command)
- * FB:FB_ON|FB_OFF, indicates whether send to UART4 or not
+ * FB:FB_ON|FB_OFF, indicates whether send to UART_DEBUG or not
  */
 void Screen_SendArrToShow(uint8_t *array,uint16_t length,uint8_t FB)
 {
 	
-	//FEEDBACK TO UART4
+	//FEEDBACK TO UART_DEBUG
 	if(FB==FB_ON)
 	{
 		Serial_SendStr_t("\r\nSent to screen:\r\n",huart_debug);
@@ -271,7 +271,7 @@ void Screen_SendArrToShow(uint8_t *array,uint16_t length,uint8_t FB)
 		Serial_SendStr_t("\r\n",huart_debug);
 	}
 	
-	//SEND TO UART5
+	//SEND TO UART_SCREEN
 	Serial_SendStr_t("recv_txt.txt=\"",huart_screen);
 	for(uint16_t itor_scrsndarr=0;itor_scrsndarr<length;itor_scrsndarr++)
 	{
@@ -284,11 +284,11 @@ void Screen_SendArrToShow(uint8_t *array,uint16_t length,uint8_t FB)
 }
 
 /*
- * Send a string to UART5(command postfix attached)
+ * Send a string to UART_SCREEN(command postfix attached)
  */
 void Screen_SendStr(char *string,uint8_t FB)
 {
-	//FEEDBACK TO UART4
+	//FEEDBACK TO UART_DEBUG
 	if(FB==FB_ON)
 	{
 		Serial_SendStr_t("\r\nSent to screen:\r\n",huart_debug);
@@ -302,7 +302,7 @@ void Screen_SendStr(char *string,uint8_t FB)
 		Serial_SendStr_t("\r\n",huart_debug);
 	}
 	
-	//SEND TO UART5
+	//SEND TO UART_SCREEN
 	for(uint16_t itor_scrsndstr=0;string[itor_scrsndstr]!=0;itor_scrsndstr++)
 	{
 		Serial_SendByte_t(string[itor_scrsndstr],huart_screen);
@@ -313,12 +313,12 @@ void Screen_SendStr(char *string,uint8_t FB)
 }
 
 /*
- * Send a string to UART5(no postfix attached)
+ * Send a string to UART_SCREEN(no postfix attached)
  */
 void Screen_SendStr_b(char *string)
 {
 
-	//SEND TO UART5
+	//SEND TO UART_SCREEN
 	for(uint16_t itor_scrsndstr=0;string[itor_scrsndstr]!=0;itor_scrsndstr++)
 	{
 		Serial_SendByte_t(string[itor_scrsndstr],huart_screen);
@@ -330,7 +330,7 @@ void Screen_SendStr_b(char *string)
  */
 void Screen_SendStrToShow(char *string,uint8_t FB)
 {
-	//FEEDBACK TO UART4
+	//FEEDBACK TO UART_DEBUG
 	if(FB==FB_ON)
 	{
 		Serial_SendStr_t("\r\nSent to screen:\r\n",huart_debug);
@@ -347,7 +347,7 @@ void Screen_SendStrToShow(char *string,uint8_t FB)
 	}
 	
 	
-	//SEND TO UART5
+	//SEND TO UART_SCREEN
 	Serial_SendStr_t("recv_txt.txt=\"",huart_screen);
 	for(uint16_t itor_scrsndstr=0;string[itor_scrsndstr]!=0;itor_scrsndstr++)
 	{
@@ -361,7 +361,7 @@ void Screen_SendStrToShow(char *string,uint8_t FB)
 
 
 /*
- * Send a number to UART5(no command)
+ * Send a number to UART_SCREEN(no command)
  */
 void Screen_SendNum(uint32_t num)
 {
@@ -382,7 +382,7 @@ void Screen_SendNum(uint32_t num)
 
 
 /*
- * Send a number to UART5(serial screen)'s display message
+ * Send a number to UART_SCREEN(serial screen)'s display message
  */
 void Screen_SendNumToShow(uint32_t num)
 {
@@ -576,7 +576,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //
 // }
 
-//SEND THE DATA FROM UART4 TO BOTH UART4 and UART5
+//SEND THE DATA FROM UART_DEBUG TO BOTH UART_DEBUG and UART_SCREEN
 void print4serial(void)
 {
 	if(USART4_RX_STA&0x8000)
@@ -593,6 +593,7 @@ void print4serial(void)
 		Serial_SendByte_t(0xFF,huart_screen);
 		Serial_SendByte_t(0xFF,huart_screen);
 
+		/*---Send the array to display message---*/
 		Screen_SendArrToShow((uint8_t*)USART4_RX_BUF,uart_rx_len,FB_OFF);
 		Serial_printf("\r\n");
 		while(__HAL_UART_GET_FLAG(&huart4,UART_FLAG_TC)!=SET);		
@@ -601,7 +602,7 @@ void print4serial(void)
 }
 
 
-//SEND THE DATA FROM UART5 TO UART4
+//SEND THE DATA FROM UART_SCREEN TO UART_DEBUG
 void print4screen(void)
 {
 	if(USART5_RX_STA&0x8000)
