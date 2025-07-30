@@ -195,9 +195,10 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_DAC1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-	// printf("before TIM\r\n");
+	printf("before TIM\r\n");
 	HAL_TIM_Base_Start(&htim1);//tim1 init
 	//HAL_TIM_Base_Start(&htim2);//tim2 init
 	// printf("before ADC\r\n");
@@ -239,6 +240,17 @@ int main(void)
 
 
 	Serial_printf("\r\n===========INITIALIZATION COMPLETE==========\r\n\n");
+
+
+
+//	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
+//	delay_ms(150);
+//	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
+//	delay_ms(150);
+//	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
+//	delay_ms(150);
+//	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+//	delay_ms(150);
 
 	//printf("debug flag 1\r\n");
   /* USER CODE END 2 */

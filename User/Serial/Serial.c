@@ -2,7 +2,7 @@
 #include "usart.h"
 #include "Serial.h"
 
-UART_HandleTypeDef *huart_debug = &huart4; ///< Debug����
+UART_HandleTypeDef *huart_debug = &huart1; ///< Debug����
 UART_HandleTypeDef *huart_screen = &huart5;
 
 uint8_t tmp_Byte=0;//Used to avoid empty pointer
@@ -212,7 +212,7 @@ void Serial_printf_t(UART_HandleTypeDef *huart, const char *formatted,...)
 	Serial_SendStr_t(String,huart);
 
 	//Send to UART4
-	//Serial_SendStr(String);
+	Serial_SendStr(String);
 }
 
 
@@ -444,7 +444,7 @@ uint16_t uart_rx_len=0;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	//Serial_printf("RxCpltCallback() tag\r\n");
-	if(huart->Instance==UART4)//����Ǵ���4
+	if(huart->Instance==USART1)//����Ǵ���4
 	{
 		if((USART4_RX_STA&0x8000)==0)//����δ���
 		{

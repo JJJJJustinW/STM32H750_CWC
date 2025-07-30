@@ -65,6 +65,7 @@ extern DMA_HandleTypeDef hdma_dac1_ch1;
 extern TIM_HandleTypeDef htim1;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart5;
+extern UART_HandleTypeDef huart1;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -236,6 +237,20 @@ void EXTI3_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles EXTI line4 interrupt.
+  */
+void EXTI4_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI4_IRQn 0 */
+
+  /* USER CODE END EXTI4_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
+  /* USER CODE BEGIN EXTI4_IRQn 1 */
+
+  /* USER CODE END EXTI4_IRQn 1 */
+}
+
+/**
   * @brief This function handles DMA1 stream0 global interrupt.
   */
 void DMA1_Stream0_IRQHandler(void)
@@ -293,40 +308,79 @@ void TIM1_UP_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles USART1 global interrupt.
+  */
+void USART1_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART1_IRQn 0 */
+
+  uint32_t timeout=0;
+  uint32_t maxDelay=0x1FFFF;
+
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+
+  timeout=0;
+  while (HAL_UART_GetState(huart_debug) != HAL_UART_STATE_READY)//???????
+  {
+    timeout++;////???????
+    if(timeout>maxDelay)
+    {
+      //reply_er();
+      break;
+    }
+  }
+
+  timeout=0;
+  while(HAL_UART_Receive_IT(huart_debug, (uint8_t *)aRxBuffer, RXBUFFERSIZE) != HAL_OK)//h?d????????????�???????????RxXferCount?1
+  {
+    timeout++; //???????
+    if(timeout>maxDelay)
+    {
+      //reply_er();
+      break;
+    }
+  }
+
+  /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
   * @brief This function handles UART4 global interrupt.
   */
 void UART4_IRQHandler(void)
 {
   /* USER CODE BEGIN UART4_IRQn 0 */
 	
-	uint32_t timeout=0;
-	uint32_t maxDelay=0x1FFFF;
+	// uint32_t timeout=0;
+	// uint32_t maxDelay=0x1FFFF;
 	
   /* USER CODE END UART4_IRQn 0 */
   HAL_UART_IRQHandler(&huart4);
   /* USER CODE BEGIN UART4_IRQn 1 */
 	
-	timeout=0;
-	while (HAL_UART_GetState(huart_debug) != HAL_UART_STATE_READY)//???????
-	{
-	 timeout++;////???????
-		 if(timeout>maxDelay)
-		{
-			//reply_er();
-			break;
-		}
-	}
-
-	timeout=0;
-	while(HAL_UART_Receive_IT(huart_debug, (uint8_t *)aRxBuffer, RXBUFFERSIZE) != HAL_OK)//h?d????????????�???????????RxXferCount?1
-	{
-	 timeout++; //???????
-	 if(timeout>maxDelay)
-	 {
-		 //reply_er();
-		break;
-	 }
-	}
+	// timeout=0;
+	// while (HAL_UART_GetState(huart_debug) != HAL_UART_STATE_READY)//???????
+	// {
+	//  timeout++;////???????
+	// 	 if(timeout>maxDelay)
+	// 	{
+	// 		//reply_er();
+	// 		break;
+	// 	}
+	// }
+	//
+	// timeout=0;
+	// while(HAL_UART_Receive_IT(huart_debug, (uint8_t *)aRxBuffer, RXBUFFERSIZE) != HAL_OK)//h?d????????????�???????????RxXferCount?1
+	// {
+	//  timeout++; //???????
+	//  if(timeout>maxDelay)
+	//  {
+	// 	 //reply_er();
+	// 	break;
+	//  }
+	// }
 	
   /* USER CODE END UART4_IRQn 1 */
 }

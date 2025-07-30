@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
-//#include "stm32h7xx_hal.h"
+#include "stm32h7xx_hal.h"
 
 #define USART_REC_LEN  			1500  	//�����������ֽ��� 200
 
