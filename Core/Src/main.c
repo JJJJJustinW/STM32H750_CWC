@@ -39,6 +39,7 @@
 #include "delay.h"
 
 #include "ch455.h"
+#include "custom_logger.h"
 
 /* USER CODE END Includes */
 
@@ -239,7 +240,13 @@ int main(void)
 	//Serial_printf("\r\nIT_RXNE ENABLED\r\n");
 
 
-	Serial_printf("\r\n===========INITIALIZATION COMPLETE==========\r\n\n");
+	CUSTOM_LOG_V(V_INFO, "===========INITIALIZATION COMPLETE==========\r\n");
+  CUSTOM_LOG_V(V_ERROR, "Example log (error)\r\n");
+  CUSTOM_LOG_V(V_WARN, "Example log (warning)\r\n");
+  CUSTOM_LOG_V(V_INFO, "Example log (info)\r\n");
+  CUSTOM_LOG_V(V_DEBUG, "Example log (debug)\r\n");
+  CUSTOM_LOG_V(9, "Example log (trace)\r\n");
+  CUSTOM_LOG("Example log (default)\r\n");
 
 
 

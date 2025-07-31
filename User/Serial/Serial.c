@@ -117,7 +117,7 @@ void Serial_SendNum(uint32_t num)
 /*
 Send strings to UART_DEBUG port
 */
-void Serial_SendStr(char *string)
+void Serial_SendStr(const char *string)
 {
 	for(uint16_t itor_sndstr=0;string[itor_sndstr]!=0;itor_sndstr++)
 	{
@@ -128,7 +128,7 @@ void Serial_SendStr(char *string)
 /*
  * Send strings to given UART port.
  */
-void Serial_SendStr_t(char *string,UART_HandleTypeDef *huart)
+void Serial_SendStr_t(const char *string,UART_HandleTypeDef *huart)
 {
 	for(uint16_t itor_sndstr=0;string[itor_sndstr]!=0;itor_sndstr++)
 	{

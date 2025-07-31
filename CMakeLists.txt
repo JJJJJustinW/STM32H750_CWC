@@ -54,6 +54,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         User/DoubleKeys/Key2.c
         User/CH455/ch455.c
         User/DDS/AD9959.c
+        User/custom_logger/custom_logger.c
 )
 
 # Add include paths
@@ -66,6 +67,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         User/DoubleKeys
         User/CH455
         User/DDS
+        User/custom_logger
 )
 
 # Add project symbols (macros)

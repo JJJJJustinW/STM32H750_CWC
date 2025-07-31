@@ -36,8 +36,8 @@ void Serial_SendArr_t(uint8_t *array,uint16_t length,UART_HandleTypeDef *huart);
 uint32_t Serial_Power(uint32_t base,uint32_t exp);
 void Serial_SendNum(uint32_t num);
 
-void Serial_SendStr(char *string);
-void Serial_SendStr_t(char *string,UART_HandleTypeDef *huart);
+void Serial_SendStr(const char *string);
+void Serial_SendStr_t(const char *string,UART_HandleTypeDef *huart);
 
 void Serial_printf(const char *formatted,...);
 void Serial_printf_t(UART_HandleTypeDef *huart, const char *formatted,...);
