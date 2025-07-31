@@ -247,10 +247,11 @@ int main(void) {
         print4serial();
 
         switch (print4screen()) {
+            /*===MODE1 FREQ OUT===*/
             case 0x1000: {
                 Serial_printf("Detected Switch ON\r\n");
                 Write_frequence(0, m1_freq);
-                Write_Amplitude(0, 800);
+                Write_Amplitude(0, 900);
                 Write_Phase(0, 0);
                 break;
             }
@@ -266,6 +267,7 @@ int main(void) {
                 CUSTOM_LOG_V(V_INFO, "%d\r\n", m1_freq);
                 break;
             }
+                /*===MODE2 1kHz_2V_Output===*/
             case 0x0100: {
                 Write_frequence(0,1000);
                 Write_Amplitude(0, 800);
@@ -278,9 +280,11 @@ int main(void) {
                 Write_frequence(0, 0);
                 break;
             }
+                /*===MODE3 FREQ 1-2V OUTPUT===*/
             case 0x0040: {
                 Mode3_FreqMagSel(USART_SCR_RX_BUF);
                 CUSTOM_LOG_V(V_INFO, "%d\r\n", m3_freq);
+                CUSTOM_LOG_V(V_INFO, "Mag:%lf\r\n", m3_mag);
                 break;
             }
             case 0x0010: {
