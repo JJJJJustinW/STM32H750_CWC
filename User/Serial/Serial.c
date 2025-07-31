@@ -1,6 +1,9 @@
 #include "stm32h7xx_hal.h"
 #include "usart.h"
 #include "Serial.h"
+#include "custom_logger.h"
+#include "Mode1.h"
+
 
 UART_HandleTypeDef *huart_debug = &huart1; ///< Debug����
 UART_HandleTypeDef *huart_screen = &huart5;
@@ -609,16 +612,22 @@ uint16_t print4screen(void)
 	uint16_t ret_val=0;
 	if(USART_SCR_RX_STA&0x8000) {
 		uart_rx_len=USART_SCR_RX_STA&0x3fff;
-		Serial_printf("\r\ndata from screen:\r\n");
+		Serial_printf("data from screen:\r\n");
 		Serial_SendArr((uint8_t*)USART_SCR_RX_BUF,uart_rx_len);
 		Serial_printf("\r\n");
 
-		if (USART_SCR_RX_BUF[0]==0x99) {
-			if (USART_SCR_RX_BUF[1]==0x01)
-				ret_val|=0x10;
-			else if (USART_SCR_RX_BUF[1]==0x00)
-				ret_val|=0x00;
+		/*---MODE1 SWITCH---*/
+		if (USART_SCR_RX_BUF[0]==0xA8) {
+			Mode1_FreqSel(USART_SCR_RX_BUF);
+			CUSTOM_LOG_V(V_INFO,"%d\r\n", m1_freq);
 		}
+		if (USART_SCR_RX_BUF[0]==0xA9) {
+			if (USART_SCR_RX_BUF[1]==0x01)
+				ret_val|=0x1000;
+			else if (USART_SCR_RX_BUF[1]==0x00)
+				ret_val|=0x0000;
+		}
+
 
 		while(__HAL_UART_GET_FLAG(huart_screen,UART_FLAG_TC)!=SET);		
 		USART_SCR_RX_STA=0;

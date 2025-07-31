@@ -40,6 +40,9 @@
 
 #include "custom_logger.h"
 
+#include "Mode1.h"
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -201,18 +204,10 @@ int main(void) {
     AD9959_SetFrequency4Channel(CW_fre, 0, 0, 0);
     AD9959_SetAmp4Channel(CW_amp, 0, 0, 0);
     IO_Update();
-    Write_frequence(0, 2000000);
-    Write_Amplitude(0, 2047);
-    Write_Phase(0, 0);
+    // Write_frequence(0, 2000000);
+    // Write_Amplitude(0, 2047);
+    // Write_Phase(0, 0);
     //Serial_printf("DDS2\r\n");
-
-
-    //CH455 Matrix Display(OBSOLETE)
-    // CH455_init();
-    // CH455_Display(1,a);
-    // CH455_Display(2,b);
-    // CH455_Display(3,c);
-    // CH455_Display(4,d);
 
 
     __HAL_UART_ENABLE_IT(huart_debug, UART_IT_RXNE);
@@ -221,22 +216,22 @@ int main(void) {
 
 
     CUSTOM_LOG_V(V_INFO, "===========INITIALIZATION COMPLETE==========\r\n");
-    CUSTOM_LOG_V(V_ERROR, "Example log (error)\r\n");
-    CUSTOM_LOG_V(V_WARN, "Example log (warning)\r\n");
-    CUSTOM_LOG_V(V_INFO, "Example log (info)\r\n");
-    CUSTOM_LOG_V(V_DEBUG, "Example log (debug)\r\n");
-    CUSTOM_LOG("\r\n");
+    // CUSTOM_LOG_V(V_ERROR, "Example log (error)\r\n");
+    // CUSTOM_LOG_V(V_WARN, "Example log (warning)\r\n");
+    // CUSTOM_LOG_V(V_INFO, "Example log (info)\r\n");
+    // CUSTOM_LOG_V(V_DEBUG, "Example log (debug)\r\n");
+    // CUSTOM_LOG("\r\n");
 
 
 
-    //	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
-    //	delay_ms(150);
-    //	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
-    //	delay_ms(150);
-    //	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
-    //	delay_ms(150);
-    //	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
-    //	delay_ms(150);
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
+    delay_ms(150);
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
+    delay_ms(150);
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
+    delay_ms(150);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+    delay_ms(150);
 
     //printf("debug flag 1\r\n");
     /* USER CODE END 2 */
@@ -252,14 +247,17 @@ int main(void) {
         print4serial();
 
         switch (print4screen()) {
-            case 0x10: {
+            case 0x1000: {
                 Serial_printf("Detected Switch ON\r\n");
                 Write_Amplitude(0, 1023);
                 Write_Phase(0, 0);
-                Write_frequence(0,10000);
+                Write_frequence(0, m1_freq);
             }
-            case 0x00: {
-                Serial_printf("Detected Switch OFF\r\n");
+            case 0x0000: {
+                // Serial_printf("Detected Switch OFF\r\n");
+                Write_Amplitude(0, 0);
+                Write_Phase(0, 0);
+                Write_frequence(0, 0);
             }
             default: ;
         }
