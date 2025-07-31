@@ -16,10 +16,10 @@
 #include "AD9959.h"
 
 #define CS_PIN GPIO_PIN_1
-#define SCLK_PIN GPIO_PIN_2
-#define SDIO0_PIN GPIO_PIN_3
-#define UPDATE_PIN GPIO_PIN_4
-#define RESET_PIN GPIO_PIN_5
+#define SCLK_PIN GPIO_PIN_3
+#define SDIO0_PIN GPIO_PIN_4
+#define UPDATE_PIN GPIO_PIN_5
+#define RESET_PIN GPIO_PIN_6
 #define GPIO_PORT GPIOD
 
 u8 CSR_DATA0[1] = {0x10}; // 开 CH0

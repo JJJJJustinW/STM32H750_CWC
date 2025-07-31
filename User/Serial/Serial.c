@@ -625,7 +625,7 @@ uint16_t print4screen(void)
 			if (USART_SCR_RX_BUF[1]==0x01)
 				ret_val|=0x1000;
 			else if (USART_SCR_RX_BUF[1]==0x00)
-				ret_val|=0x0000;
+				ret_val|=0x2000;
 		}
 
 

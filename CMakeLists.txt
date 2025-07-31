@@ -36,7 +36,10 @@ add_executable(${CMAKE_PROJECT_NAME}
         User/ADC/ADC_Custom.c
         User/ADC/ADC_Custom.h
         User/Mode1/Mode1.c
-        User/Mode1/Mode1.h)
+        User/Mode1/Mode1.h
+        User/DDS/AD9959.c
+        User/DDS/AD9959.h
+)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
