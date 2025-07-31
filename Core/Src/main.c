@@ -41,6 +41,7 @@
 #include "custom_logger.h"
 
 #include "Mode1.h"
+#include "Mode3.h"
 
 
 /* USER CODE END Includes */
@@ -243,10 +244,10 @@ int main(void) {
         /* USER CODE BEGIN 3 */
         //ADC_DMA_Output();
 
+        print4serial();
 
         switch (print4screen()) {
             case 0x1000: {
-                print4serial();
                 Serial_printf("Detected Switch ON\r\n");
                 Write_frequence(0, m1_freq);
                 Write_Amplitude(0, 800);
@@ -254,8 +255,40 @@ int main(void) {
                 break;
             }
             case 0x2000: {
-                print4serial();
                 Serial_printf("Detected Switch OFF\r\n");
+                Write_Amplitude(0, 0);
+                Write_Phase(0, 0);
+                Write_frequence(0, 0);
+                break;
+            }
+            case 0x4000: {
+                Mode1_FreqSel(USART_SCR_RX_BUF);
+                CUSTOM_LOG_V(V_INFO, "%d\r\n", m1_freq);
+                break;
+            }
+            case 0x0100: {
+                Write_frequence(0,1000);
+                Write_Amplitude(0, 800);
+                Write_Phase(0, 0);
+                break;
+            }
+            case 0x0200: {
+                Write_Amplitude(0, 0);
+                Write_Phase(0, 0);
+                Write_frequence(0, 0);
+                break;
+            }
+            case 0x0040: {
+                Mode3_FreqMagSel(USART_SCR_RX_BUF);
+                CUSTOM_LOG_V(V_INFO, "%d\r\n", m3_freq);
+            }
+            case 0x0010: {
+                Write_frequence(0,m3_freq);
+                Write_Amplitude(0, 800);
+                Write_Phase(0, 0);
+                break;
+            }
+            case 0x0020: {
                 Write_Amplitude(0, 0);
                 Write_Phase(0, 0);
                 Write_frequence(0, 0);

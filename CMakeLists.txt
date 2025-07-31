@@ -39,6 +39,8 @@ add_executable(${CMAKE_PROJECT_NAME}
         User/Mode1/Mode1.h
         User/DDS/AD9959.c
         User/DDS/AD9959.h
+        User/Mode3/Mode3.c
+        User/Mode3/Mode3.h
 )
 
 # Add STM32CubeMX generated sources
@@ -60,6 +62,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         User/DDS/AD9959.c
         User/custom_logger/custom_logger.c
         User/Mode1/Mode1.c
+        User/Mode3/Mode3.c
 )
 
 # Add include paths
@@ -73,6 +76,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         User/DDS
         User/custom_logger
         User/Mode1
+        User/Mode3
 )
 
 # Add project symbols (macros)
