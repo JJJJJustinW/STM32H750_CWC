@@ -2,5 +2,4 @@ build/
 cmake-build-debug-mingw-stm32/
 cmake-build-debug-stm32cubeclt/
 .idea/
-STM32H750_CWC.ioc
 MDK-ARM/
