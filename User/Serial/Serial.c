@@ -2,7 +2,6 @@
 #include "usart.h"
 #include "Serial.h"
 #include "custom_logger.h"
-#include "Mode3.h"
 
 
 UART_HandleTypeDef *huart_debug = &huart1; ///< Debug����

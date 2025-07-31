@@ -281,6 +281,7 @@ int main(void) {
             case 0x0040: {
                 Mode3_FreqMagSel(USART_SCR_RX_BUF);
                 CUSTOM_LOG_V(V_INFO, "%d\r\n", m3_freq);
+                break;
             }
             case 0x0010: {
                 Write_frequence(0,m3_freq);
