@@ -34,7 +34,7 @@ do{if(verbosity<=LOG_VERBOSITY_CUTOFF){print_log_header(__FILE__, __LINE__, verb
 do{print_log_header(__FILE__, __LINE__, V_INFO);Serial_printf(__VA_ARGS__);}while(0)
 #else /*ENABLE_CUSTOM_LOG*/
 #define CUSTOM_LOG_V(verbosity, ...) do{}while(0);
-#define CUSTOM_LOG(verbosity, ...) do{}while(0);
+#define CUSTOM_LOG(...) do{}while(0);
 #endif /*ENABLE_CUSTOM_LOG*/
 
 void print_log_header(const char *file_name, int line_number, int verbosity);
