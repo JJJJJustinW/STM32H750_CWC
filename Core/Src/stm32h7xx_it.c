@@ -391,7 +391,7 @@ void UART4_IRQHandler(void)
 void UART5_IRQHandler(void)
 {
   /* USER CODE BEGIN UART5_IRQn 0 */
-
+  //printf("U5 Hdl\r\n");
 	uint32_t timeout=0;
 	uint32_t maxDelay=0x1FFFF;
 	

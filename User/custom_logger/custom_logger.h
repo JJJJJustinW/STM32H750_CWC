@@ -11,7 +11,7 @@
  * Begin configuration
  * */
 
-#define ENABLE_CUSTOM_LOG // Comment this line to disable all logs (no runtime overhead)
+ #define ENABLE_CUSTOM_LOG // Comment this line to disable all logs (no runtime overhead)
 
 #define LOG_VERBOSITY_CUTOFF 4 // Suppress all log with verbosity greater than this value (with runtime overhead)
 

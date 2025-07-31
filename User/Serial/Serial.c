@@ -425,17 +425,17 @@ void Screen_SendNumToShow(uint32_t num)
 //RECEIVE PART
 
 
-uint8_t USART4_RX_BUF[USART_REC_LEN];     //���ջ���,���USART_REC_LEN���ֽ�. An Array! Use the sendArr function
-uint8_t USART5_RX_BUF[USART_REC_LEN];
+uint8_t USART_DBG_RX_BUF[USART_REC_LEN];     //���ջ���,���USART_REC_LEN���ֽ�. An Array! Use the sendArr function
+uint8_t USART_SCR_RX_BUF[USART_REC_LEN];
 
 //����״̬
 //bit15��	������ɱ�־
 //bit14��	���յ�0x0d
 //bit13~0��	���յ�����Ч�ֽ���Ŀ-----ָ��д��RX_BUF��index
-uint16_t USART4_RX_STA=0;       //����״̬���	
+uint16_t USART_DBG_RX_STA=0;       //����״̬���
 uint8_t aRxBuffer[RXBUFFERSIZE];//HAL��ʹ�õĴ��ڽ��ջ���
 
-uint16_t USART5_RX_STA=0;
+uint16_t USART_SCR_RX_STA=0;
 uint8_t aRxBuffer5[RXBUFFERSIZE];
 
 uint16_t uart_rx_len=0;
@@ -446,28 +446,28 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	//Serial_printf("RxCpltCallback() tag\r\n");
 	if(huart->Instance==USART1)//����Ǵ���4
 	{
-		if((USART4_RX_STA&0x8000)==0)//����δ���
+		if((USART_DBG_RX_STA&0x8000)==0)//����δ���
 		{
-			if(USART4_RX_STA&0x4000)//���յ���0x0d
+			if(USART_DBG_RX_STA&0x4000)//���յ���0x0d
 			{
-				if(aRxBuffer[0]!=0x0a)USART4_RX_STA=0;//���մ���,���¿�ʼ
+				if(aRxBuffer[0]!=0x0a)USART_DBG_RX_STA=0;//���մ���,���¿�ʼ
 				else 
 				{	
-					USART4_RX_STA|=0x8000;	//��������� 
-					//printf("USART4_RX_BUF[%d]:%s\r\n",USART4_RX_STA,USART4_RX_BUF);	
+					USART_DBG_RX_STA|=0x8000;	//���������
+					//printf("USART_DBG_RX_BUF[%d]:%s\r\n",USART_DBG_RX_STA,USART_DBG_RX_BUF);
 				}				
 			}
 			else //��û�յ�0X0D
 			{	
 				if(aRxBuffer[0]==0x0d)
-					USART4_RX_STA|=0x4000;
+					USART_DBG_RX_STA|=0x4000;
 				else
 				{
-					USART4_RX_BUF[USART4_RX_STA&0X3FFF]=aRxBuffer[0] ;
-					USART4_RX_STA++;
-					if(USART4_RX_STA>(USART_REC_LEN-1))
+					USART_DBG_RX_BUF[USART_DBG_RX_STA&0X3FFF]=aRxBuffer[0] ;
+					USART_DBG_RX_STA++;
+					if(USART_DBG_RX_STA>(USART_REC_LEN-1))
 					{	
-						USART4_RX_STA=0;//�������ݴ���,���¿�ʼ����	 
+						USART_DBG_RX_STA=0;//�������ݴ���,���¿�ʼ����
 							//reply_er();//�ݲ�����
 					}
 				}		 
@@ -477,28 +477,29 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	
 	if(huart->Instance==UART5)//����Ǵ���5
 	{
-		if((USART5_RX_STA&0x8000)==0)//����δ���
+		//printf("UART5\r\n");
+		if((USART_SCR_RX_STA&0x8000)==0)//����δ���
 		{
-			if(USART5_RX_STA&0x4000)//���յ���0x0d
+			if(USART_SCR_RX_STA&0x4000)//���յ���0x0d
 			{
-				if(aRxBuffer5[0]!=0x0a)USART5_RX_STA=0;//���մ���,���¿�ʼ
+				if(aRxBuffer5[0]!=0x0a)USART_SCR_RX_STA=0;//���մ���,���¿�ʼ
 				else 
 				{	
-					USART5_RX_STA|=0x8000;	//��������� 
-					//printf("USART4_RX_BUF[%d]:%s\r\n",USART4_RX_STA,USART4_RX_BUF);	
+					USART_SCR_RX_STA|=0x8000;	//���������
+					//printf("USART_DBG_RX_BUF[%d]:%s\r\n",USART_DBG_RX_STA,USART_DBG_RX_BUF);
 				}				
 			}
 			else //��û�յ�0X0D
 			{	
 				if(aRxBuffer5[0]==0x0d)
-					USART5_RX_STA|=0x4000;
+					USART_SCR_RX_STA|=0x4000;
 				else
 				{
-					USART5_RX_BUF[USART5_RX_STA&0X3FFF]=aRxBuffer5[0] ;
-					USART5_RX_STA++;
-					if(USART5_RX_STA>(USART_REC_LEN-1))
+					USART_SCR_RX_BUF[USART_SCR_RX_STA&0X3FFF]=aRxBuffer5[0] ;
+					USART_SCR_RX_STA++;
+					if(USART_SCR_RX_STA>(USART_REC_LEN-1))
 					{	
-						USART5_RX_STA=0;//�������ݴ���,���¿�ʼ����	 
+						USART_SCR_RX_STA=0;//�������ݴ���,���¿�ʼ����
 							//reply_er();//�ݲ�����
 					}
 				}		 
@@ -579,41 +580,50 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //SEND THE DATA FROM UART_DEBUG TO BOTH UART_DEBUG and UART_SCREEN
 void print4serial(void)
 {
-	if(USART4_RX_STA&0x8000)
+	if(USART_DBG_RX_STA&0x8000)
 	{
-		uart_rx_len=USART4_RX_STA&0x3fff;
+		uart_rx_len=USART_DBG_RX_STA&0x3fff;
 		Serial_printf("\r\nsent data:\r\n");
 //		HAL_UART_Transmit(huart_debug,(uint8_t*)USART_RX_BUF,uart_rx_len,1000);  //Original print
 
-		Serial_SendArr((uint8_t*)USART4_RX_BUF,uart_rx_len);
+		Serial_SendArr((uint8_t*)USART_DBG_RX_BUF,uart_rx_len);
 
 		/*---If the array is a command it will work---*/
-		Screen_SendArr((uint8_t*)USART4_RX_BUF,uart_rx_len);
+		Screen_SendArr((uint8_t*)USART_DBG_RX_BUF,uart_rx_len);
 		Serial_SendByte_t(0xFF,huart_screen);
 		Serial_SendByte_t(0xFF,huart_screen);
 		Serial_SendByte_t(0xFF,huart_screen);
 
 		/*---Send the array to display message---*/
-		Screen_SendArrToShow((uint8_t*)USART4_RX_BUF,uart_rx_len,FB_OFF);
+		Screen_SendArrToShow((uint8_t*)USART_DBG_RX_BUF,uart_rx_len,FB_OFF);
 		Serial_printf("\r\n");
 		while(__HAL_UART_GET_FLAG(huart_debug,UART_FLAG_TC)!=SET);		
-		USART4_RX_STA=0;
+		USART_DBG_RX_STA=0;
 	}
 }
 
 
 //SEND THE DATA FROM UART_SCREEN TO UART_DEBUG
-void print4screen(void)
+uint16_t print4screen(void)
 {
-	if(USART5_RX_STA&0x8000)
-	{
-		uart_rx_len=USART5_RX_STA&0x3fff;
+	uint16_t ret_val=0;
+	if(USART_SCR_RX_STA&0x8000) {
+		uart_rx_len=USART_SCR_RX_STA&0x3fff;
 		Serial_printf("\r\ndata from screen:\r\n");
-		Serial_SendArr((uint8_t*)USART5_RX_BUF,uart_rx_len);
+		Serial_SendArr((uint8_t*)USART_SCR_RX_BUF,uart_rx_len);
 		Serial_printf("\r\n");
+
+		if (USART_SCR_RX_BUF[0]==0x99) {
+			if (USART_SCR_RX_BUF[1]==0x01)
+				ret_val|=0x10;
+			else if (USART_SCR_RX_BUF[1]==0x00)
+				ret_val|=0x00;
+		}
+
 		while(__HAL_UART_GET_FLAG(huart_screen,UART_FLAG_TC)!=SET);		
-		USART5_RX_STA=0;
+		USART_SCR_RX_STA=0;
 	}
+	return ret_val;
 }
 
 

@@ -16,12 +16,12 @@
 
 extern UART_HandleTypeDef *huart_screen;
 extern UART_HandleTypeDef *huart_debug;
-extern uint8_t USART4_RX_BUF[USART_REC_LEN];     //���ջ���,���USART_REC_LEN���ֽ�.
-extern uint16_t USART4_RX_STA;       //����״̬���
+extern uint8_t USART_DBG_RX_BUF[USART_REC_LEN];     //���ջ���,���USART_REC_LEN���ֽ�.
+extern uint16_t USART_DBG_RX_STA;       //����״̬���
 
 
-extern uint8_t USART5_RX_BUF[USART_REC_LEN];     //���ջ���,���USART_REC_LEN���ֽ�.
-extern uint16_t USART5_RX_STA;       //����״̬���
+extern uint8_t USART_SCR_RX_BUF[USART_REC_LEN];     //���ջ���,���USART_REC_LEN���ֽ�.
+extern uint16_t USART_SCR_RX_STA;       //����״̬���
 
 extern uint8_t aRxBuffer[RXBUFFERSIZE];
 extern uint8_t aRxBuffer5[RXBUFFERSIZE];
@@ -51,6 +51,6 @@ void Screen_SendNum(uint32_t num);
 void Screen_SendNumToShow(uint32_t num);
 
 void print4serial(void);
-void print4screen(void);
+uint16_t print4screen(void);
 
 #endif
