@@ -36,4 +36,5 @@ stm32h750_cwc/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Core\Inc\tim.h ..\Core\Inc\usart.h ..\Core\Inc\gpio.h \
   ..\User\Serial\Serial.h ..\User\DoubleKeys\Key2.h ..\User\DDS\AD9959.h \
   ..\User\Delay\delay.h ..\User\custom_logger\custom_logger.h \
-  ..\User\Mode1\Mode1.h ..\User\Mode3\Mode3.h ..\User\Mode4\Mode4.h
+  ..\User\Mode1\Mode1.h ..\User\Mode3\Mode3.h ..\User\Mode4\Mode4.h \
+  ..\Core\Src\..\..\User\DDS\AD9959.h

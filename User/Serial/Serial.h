@@ -23,8 +23,8 @@ extern uint16_t USART_DBG_RX_STA;       //����״̬���
 extern uint8_t USART_SCR_RX_BUF[USART_REC_LEN];     //���ջ���,���USART_REC_LEN���ֽ�.
 extern uint16_t USART_SCR_RX_STA;       //����״̬���
 
-extern uint8_t aRxBuffer[RXBUFFERSIZE];
-extern uint8_t aRxBuffer5[RXBUFFERSIZE];
+extern uint8_t aRxBuffer_scr[RXBUFFERSIZE];
+extern uint8_t aRxBuffer_dbg[RXBUFFERSIZE];
 
 
 void Serial_SendByte(uint8_t Byte);

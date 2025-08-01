@@ -9,6 +9,7 @@
 
 extern uint32_t m3_freq;
 extern double m3_mag;
+extern uint16_t m3_DDS_Out;
 
 void Mode3_FreqMagSel(const uint8_t *input);
 

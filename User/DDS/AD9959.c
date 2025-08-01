@@ -15,12 +15,17 @@
 //-----------------------------------------------------------------
 #include "AD9959.h"
 
-#define CS_PIN GPIO_PIN_1
-#define SCLK_PIN GPIO_PIN_3
-#define SDIO0_PIN GPIO_PIN_4
-#define UPDATE_PIN GPIO_PIN_5
+#define CS_PIN GPIO_PIN_9
+#define SCLK_PIN GPIO_PIN_7
+#define SDIO0_PIN GPIO_PIN_0
+#define UPDATE_PIN GPIO_PIN_4
 #define RESET_PIN GPIO_PIN_6
 #define GPIO_PORT GPIOD
+#define CS_PORT GPIOE
+#define SCLK_PORT GPIOE
+#define SDIO0_PORT GPIOB
+#define UPDATE_PORT GPIOC
+#define RESET_PORT GPIOA
 
 u8 CSR_DATA0[1] = {0x10}; // 开 CH0
 u8 CSR_DATA1[1] = {0x20}; // 开 CH1
@@ -58,29 +63,29 @@ void delay1(uint32_t length)
 // IO口初始化
 void Intserve(void)
 {
-    HAL_GPIO_WritePin(GPIO_PORT, CS_PIN, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIO_PORT, SCLK_PIN, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIO_PORT, SDIO0_PIN, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIO_PORT, UPDATE_PIN, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIO_PORT, RESET_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(SCLK_PORT, SCLK_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(SDIO0_PORT, SDIO0_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(UPDATE_PORT, UPDATE_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(RESET_PORT, RESET_PIN, GPIO_PIN_RESET);
 }
 // AD9959复位
 void IntReset(void)
 {
-    HAL_GPIO_WritePin(GPIO_PORT, RESET_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(RESET_PORT, RESET_PIN, GPIO_PIN_RESET);
     delay1(1);
-    HAL_GPIO_WritePin(GPIO_PORT, RESET_PIN, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(RESET_PORT, RESET_PIN, GPIO_PIN_SET);
     delay1(30);
-    HAL_GPIO_WritePin(GPIO_PORT, RESET_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(RESET_PORT, RESET_PIN, GPIO_PIN_RESET);
 }
 // AD9959更新数据
 void IO_Update(void)
 {
-    HAL_GPIO_WritePin(GPIO_PORT, UPDATE_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(UPDATE_PORT, UPDATE_PIN, GPIO_PIN_RESET);
     delay1(2);
-    HAL_GPIO_WritePin(GPIO_PORT, UPDATE_PIN, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(UPDATE_PORT, UPDATE_PIN, GPIO_PIN_SET);
     delay1(4);
-    HAL_GPIO_WritePin(GPIO_PORT, UPDATE_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(UPDATE_PORT, UPDATE_PIN, GPIO_PIN_RESET);
 }
 // SPI数据写入
 void WriteData_AD9959(uint8_t RegisterAddress, uint8_t NumberofRegisters, uint8_t *RegisterData, uint8_t temp)
@@ -92,40 +97,40 @@ void WriteData_AD9959(uint8_t RegisterAddress, uint8_t NumberofRegisters, uint8_
 
     ControlValue = RegisterAddress;
 
-    HAL_GPIO_WritePin(GPIO_PORT, CS_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
 
     for (i = 0; i < 8; i++)
     {
-        HAL_GPIO_WritePin(GPIO_PORT, SCLK_PIN, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(SCLK_PORT, SCLK_PIN, GPIO_PIN_RESET);
         if (0x80 == (ControlValue & 0x80))
-            HAL_GPIO_WritePin(GPIO_PORT, SDIO0_PIN, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(SDIO0_PORT, SDIO0_PIN, GPIO_PIN_SET);
         else
-            HAL_GPIO_WritePin(GPIO_PORT, SDIO0_PIN, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIO_PORT, SCLK_PIN, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(SDIO0_PORT, SDIO0_PIN, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(SCLK_PORT, SCLK_PIN, GPIO_PIN_SET);
         ControlValue <<= 1;
     }
-    HAL_GPIO_WritePin(GPIO_PORT, SCLK_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(SCLK_PORT, SCLK_PIN, GPIO_PIN_RESET);
 
     for (RegisterIndex = 0; RegisterIndex < NumberofRegisters; RegisterIndex++)
     {
         ValueToWrite = RegisterData[RegisterIndex];
         for (i = 0; i < 8; i++)
         {
-            HAL_GPIO_WritePin(GPIO_PORT, SCLK_PIN, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(SCLK_PORT, SCLK_PIN, GPIO_PIN_RESET);
             if (0x80 == (ValueToWrite & 0x80))
-                HAL_GPIO_WritePin(GPIO_PORT, SDIO0_PIN, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(SDIO0_PORT, SDIO0_PIN, GPIO_PIN_SET);
             else
-                HAL_GPIO_WritePin(GPIO_PORT, SDIO0_PIN, GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIO_PORT, SCLK_PIN, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(SDIO0_PORT, SDIO0_PIN, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(SCLK_PORT, SCLK_PIN, GPIO_PIN_SET);
             ValueToWrite <<= 1;
         }
-        HAL_GPIO_WritePin(GPIO_PORT, SCLK_PIN, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(SCLK_PORT, SCLK_PIN, GPIO_PIN_RESET);
     }
 
     if (temp == 1)
         IO_Update();
 
-    HAL_GPIO_WritePin(GPIO_PORT, CS_PIN, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);
 }
 // 设置单个通道频率
 void Write_frequence(uint8_t Channel, uint32_t Freq)

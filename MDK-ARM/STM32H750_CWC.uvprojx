@@ -138,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2V8M.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_PWR_LDO_SUPPLY,USE_HAL_DRIVER,STM32H750xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/CH455;../User/DDS;../User/Delay;../User/DoubleKeys;../User/IIC;../User/Serial;..\User\custom_logger;..\User\Mode1;..\User\Mode3;..\User\Mode4</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/CH455;..\User\DDS;../User/Delay;../User/DoubleKeys;../User/IIC;../User/Serial;..\User\custom_logger;..\User\Mode1;..\User\Mode3;..\User\Mode4</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -600,11 +600,6 @@
               <FilePath>..\User\Delay\delay.c</FilePath>
             </File>
             <File>
-              <FileName>AD9959.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\DDS\AD9959.c</FilePath>
-            </File>
-            <File>
               <FileName>ch455.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\CH455\ch455.c</FilePath>
@@ -630,9 +625,9 @@
               <FilePath>..\User\Mode4\Mode4.c</FilePath>
             </File>
             <File>
-              <FileName>Mode3.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\User\Mode3\Mode3.h</FilePath>
+              <FileName>AD9959.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\DDS\AD9959.c</FilePath>
             </File>
           </Files>
         </Group>

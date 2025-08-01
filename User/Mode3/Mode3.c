@@ -8,7 +8,7 @@
 uint32_t m3_freq=0;
 double m3_mag=0;
 double m3_amp=10.4;
-uint16_t m3_DDS_out=0;
+uint16_t m3_DDS_Out=0;
 uint16_t m3_dig_to_analog=1;
 
 

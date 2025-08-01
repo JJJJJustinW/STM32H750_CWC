@@ -6,17 +6,17 @@
 #include <string.h>
 #include <time.h>
 
-static clock_t t0 = 0;
+// static clock_t t0 = 0;
 
-static void print_time() {
-    if (t0 == 0) {
-        t0 = clock();
-    }
-    clock_t t1 = clock() - t0;
-    int t2 = (int) (t1 / CLOCKS_PER_SEC);
-    int t3 = (int) (t1 % CLOCKS_PER_SEC);
-    Serial_printf("[% 5d.%02d] ", t2, t3);
-}
+// static void print_time() {
+//     if (t0 == 0) {
+//         t0 = clock();
+//     }
+//     clock_t t1 = clock() - t0;
+//     int t2 = (int) (t1 / CLOCKS_PER_SEC);
+//     int t3 = (int) (t1 % CLOCKS_PER_SEC);
+//     Serial_printf("[% 5d.%02d] ", t2, t3);
+// }
 
 static void print_log_verbosity_name(int verbosity) {
     if (verbosity <= V_ERROR) {

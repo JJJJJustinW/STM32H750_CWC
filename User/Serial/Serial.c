@@ -4,8 +4,8 @@
 #include "custom_logger.h"
 
 
-UART_HandleTypeDef *huart_debug = &huart1; ///< Debug����
-UART_HandleTypeDef *huart_screen = &huart5;
+UART_HandleTypeDef *huart_debug = &huart5; ///< Debug����
+UART_HandleTypeDef *huart_screen = &huart1;
 
 uint8_t tmp_Byte = 0; //Used to avoid empty pointer
 
@@ -375,33 +375,33 @@ uint8_t USART_SCR_RX_BUF[USART_REC_LEN];
 //bit14��	���յ�0x0d
 //bit13~0��	���յ�����Ч�ֽ���Ŀ-----ָ��д��RX_BUF��index
 uint16_t USART_DBG_RX_STA = 0; //����״̬���
-uint8_t aRxBuffer[RXBUFFERSIZE]; //HAL��ʹ�õĴ��ڽ��ջ���
+uint8_t aRxBuffer_dbg[RXBUFFERSIZE]; //HAL��ʹ�õĴ��ڽ��ջ���
 
 uint16_t USART_SCR_RX_STA = 0;
-uint8_t aRxBuffer5[RXBUFFERSIZE];
+uint8_t aRxBuffer_scr[RXBUFFERSIZE];
 
 uint16_t uart_rx_len = 0;
 
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     //Serial_printf("RxCpltCallback() tag\r\n");
-    if (huart->Instance == USART1) //����Ǵ���4
+    if (huart->Instance == UART5) //����Ǵ���4
     {
         if ((USART_DBG_RX_STA & 0x8000) == 0) //����δ���
         {
             if (USART_DBG_RX_STA & 0x4000) //���յ���0x0d
             {
-                if (aRxBuffer[0] != 0x0a)USART_DBG_RX_STA = 0; //���մ���,���¿�ʼ
+                if (aRxBuffer_dbg[0] != 0x0a)USART_DBG_RX_STA = 0; //���մ���,���¿�ʼ
                 else {
                     USART_DBG_RX_STA |= 0x8000; //���������
                     //printf("USART_DBG_RX_BUF[%d]:%s\r\n",USART_DBG_RX_STA,USART_DBG_RX_BUF);
                 }
             } else //��û�յ�0X0D
             {
-                if (aRxBuffer[0] == 0x0d)
+                if (aRxBuffer_dbg[0] == 0x0d)
                     USART_DBG_RX_STA |= 0x4000;
                 else {
-                    USART_DBG_RX_BUF[USART_DBG_RX_STA & 0X3FFF] = aRxBuffer[0];
+                    USART_DBG_RX_BUF[USART_DBG_RX_STA & 0X3FFF] = aRxBuffer_dbg[0];
                     USART_DBG_RX_STA++;
                     if (USART_DBG_RX_STA > (USART_REC_LEN - 1)) {
                         USART_DBG_RX_STA = 0; //�������ݴ���,���¿�ʼ����
@@ -412,24 +412,24 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
         }
     }
 
-    if (huart->Instance == UART5) //����Ǵ���5
+    if (huart->Instance == USART1) //����Ǵ���5
     {
         //printf("UART5\r\n");
         if ((USART_SCR_RX_STA & 0x8000) == 0) //����δ���
         {
             if (USART_SCR_RX_STA & 0x4000) //���յ���0x0d
             {
-                if (aRxBuffer5[0] != 0x0a)USART_SCR_RX_STA = 0; //���մ���,���¿�ʼ
+                if (aRxBuffer_scr[0] != 0x0a)USART_SCR_RX_STA = 0; //���մ���,���¿�ʼ
                 else {
                     USART_SCR_RX_STA |= 0x8000; //���������
                     //printf("USART_DBG_RX_BUF[%d]:%s\r\n",USART_DBG_RX_STA,USART_DBG_RX_BUF);
                 }
             } else //��û�յ�0X0D
             {
-                if (aRxBuffer5[0] == 0x0d)
+                if (aRxBuffer_scr[0] == 0x0d)
                     USART_SCR_RX_STA |= 0x4000;
                 else {
-                    USART_SCR_RX_BUF[USART_SCR_RX_STA & 0X3FFF] = aRxBuffer5[0];
+                    USART_SCR_RX_BUF[USART_SCR_RX_STA & 0X3FFF] = aRxBuffer_scr[0];
                     USART_SCR_RX_STA++;
                     if (USART_SCR_RX_STA > (USART_REC_LEN - 1)) {
                         USART_SCR_RX_STA = 0; //�������ݴ���,���¿�ʼ����
@@ -554,7 +554,7 @@ uint16_t print4screen(void) {
 
         CUSTOM_LOG(">>>>>> Begin data from screen\r\n");
         Serial_SendArr(USART_SCR_RX_BUF, uart_rx_len);
-        CUSTOM_LOG("<<<<<<  End  data from screen\r\n");
+        CUSTOM_LOG("\r\n<<<<<<  End  data from screen\r\n");
 
         /*---MODE1 SETFREQ---*/
         if (USART_SCR_RX_BUF[0] == 0xA8) {

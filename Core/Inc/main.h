@@ -57,6 +57,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define GPIO_9959_RST_Pin GPIO_PIN_6
+#define GPIO_9959_RST_GPIO_Port GPIOA
+#define GPIO_9959_IOUP_Pin GPIO_PIN_4
+#define GPIO_9959_IOUP_GPIO_Port GPIOC
+#define GPIO_9959_SDIO_Pin GPIO_PIN_0
+#define GPIO_9959_SDIO_GPIO_Port GPIOB
+#define GPIO_9959_SCLK_Pin GPIO_PIN_7
+#define GPIO_9959_SCLK_GPIO_Port GPIOE
+#define GPIO_9959_CSB_Pin GPIO_PIN_9
+#define GPIO_9959_CSB_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
 

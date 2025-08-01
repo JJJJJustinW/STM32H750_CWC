@@ -7,8 +7,9 @@
 void FIR_Init(
     FIR_HandleTypeDef *fir1,
     SweepTestCase *sweep1,
-
-    )
+    int order,
+    int sample_rate
+    );
 
 
 
