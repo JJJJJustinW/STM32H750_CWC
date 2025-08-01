@@ -34,6 +34,6 @@ stm32h750_cwc/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_uart_ex.h \
   ..\Core\Inc\adc.h ..\Core\Inc\dac.h ..\Core\Inc\dma.h \
   ..\Core\Inc\tim.h ..\Core\Inc\usart.h ..\Core\Inc\gpio.h \
-  ..\User\Serial\Serial.h ..\User\ADC\ADC_Custom.h \
-  ..\User\DoubleKeys\Key2.h ..\User\DDS\AD9959.h ..\User\Delay\delay.h \
-  ..\User\CH455\ch455.h
+  ..\User\Serial\Serial.h ..\User\DoubleKeys\Key2.h ..\User\DDS\AD9959.h \
+  ..\User\Delay\delay.h ..\User\custom_logger\custom_logger.h \
+  ..\User\Mode1\Mode1.h ..\User\Mode3\Mode3.h ..\User\Mode4\Mode4.h

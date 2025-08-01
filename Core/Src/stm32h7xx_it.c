@@ -257,7 +257,7 @@ void DMA1_Stream0_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
 
-  Serial_printf("DMA_IT\r\n");
+  //Serial_printf("DMA_IT\r\n");
   /* USER CODE END DMA1_Stream0_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc1);
   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */

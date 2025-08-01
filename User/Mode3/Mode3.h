@@ -5,8 +5,7 @@
 #ifndef MODE3_H
 #define MODE3_H
 
-
-#include "fastmath.h"
+#include <stdint.h>
 
 extern uint32_t m3_freq;
 extern double m3_mag;

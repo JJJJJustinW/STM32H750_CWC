@@ -40,8 +40,11 @@
 "stm32h750_cwc\delay.o"
 "stm32h750_cwc\ad9959.o"
 "stm32h750_cwc\ch455.o"
-"stm32h750_cwc\adc_custom.o"
---strict --scatter "STM32H750_CWC\STM32H750_CWC.sct"
+"stm32h750_cwc\custom_logger.o"
+"stm32h750_cwc\mode1.o"
+"stm32h750_cwc\mode3.o"
+"stm32h750_cwc\mode4.o"
+--library_type=microlib --strict --scatter "STM32H750_CWC\STM32H750_CWC.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "STM32H750_CWC.map" -o STM32H750_CWC\STM32H750_CWC.axf

@@ -54,10 +54,11 @@ void ADC_DMA_Init(
 }
 
 void ADC_DMA_Start(ADC_DMA_HandleTypeDef *hadda) {
+    HAL_ADCEx_Calibration_Start(hadda->hadc1,ADC_CALIB_OFFSET,ADC_SINGLE_ENDED);
     uint16_t size = 2*(hadda->bufSize);
     delay_ms(100);
-    HAL_ADC_Start(hadda->hadc1);
-    // HAL_ADCEx_MultiModeStart_DMA(hadda->hadc1,       (uint32_t *)(hadda->adcDualRawBuf), size);//Original for differential-ended output
+    //HAL_ADC_Start(hadda->hadc1);
+    // HAL_ADCEx_MultiModeStart_DMA(hadda->hadc1,       (uint32_t *)(hadda->adc1RawBuf), size);//Original for differential-ended output
     HAL_ADC_Start_DMA(hadda->hadc1,(uint32_t *)(hadda->adc1RawBuf),size);
     HAL_DAC_Start_DMA(hadda->hdac1, hadda->hdac1Ch1,  (uint32_t *)(hadda->dac1Ch1RawBuf), size, DAC_ALIGN_12B_R);
     HAL_TIM_Base_Start(hadda->htim);
@@ -65,7 +66,7 @@ void ADC_DMA_Start(ADC_DMA_HandleTypeDef *hadda) {
 
 void ADC_DMA_Stop(ADC_DMA_HandleTypeDef *hadda) {
     HAL_TIM_Base_Stop(hadda->htim);
-    HAL_ADCEx_MultiModeStop_DMA(hadda->hadc1);
+    // HAL_ADCEx_MultiModeStop_DMA(hadda->hadc1);
     HAL_ADC_Stop_DMA(hadda->hadc1);
     HAL_DAC_Stop_DMA(hadda->hdac1, hadda->hdac1Ch1);
 }
@@ -100,6 +101,7 @@ void ADC_DMA_Main(ADC_DMA_HandleTypeDef *hadda) {
             __NOP();
             break;
         case ADDA_IRQ_Half:
+            CUSTOM_LOG("IRQ_HALF\r\n");
             hadda->irqState = ADDA_IRQ_Idle;
             for (i = 0; i < size; i++) {
                 uintTemp1 = (uint16_t)(0x0000FFFF &  (hadda->adc1RawBuf[i]));
@@ -112,6 +114,7 @@ void ADC_DMA_Main(ADC_DMA_HandleTypeDef *hadda) {
             hadda->halfTxfrFunc();
             break;
         case ADDA_IRQ_Full:
+            CUSTOM_LOG("IRQ_FULL\r\n");
             hadda->irqState = ADDA_IRQ_Idle;
             for (i = size; i < 2*size; i++) {
                 uintTemp1 = (uint16_t)(0x0000FFFF &  (hadda->adc1RawBuf[i]));
@@ -138,12 +141,12 @@ void ADC_DMA_RTFunc(void) {
 
 /*-*----Full Transfer Function(Run at the end of Full IRQ)----*-*/
 void ADC_DMA_FullTxFunc(void) {
-    CUSTOM_LOG_V(V_INFO,"DMA FULL TX\r\n");
+    //CUSTOM_LOG_V(V_INFO,"DMA FULL TX\r\n");
 }
 
 /*-*----Half Transfer Function(Run at the end of Half IRQ)----*-*/
 void ADC_DMA_HalfTxFunc(void) {
-    CUSTOM_LOG_V(V_INFO,"DMA HALF TX\r\n");
+    //CUSTOM_LOG_V(V_INFO,"DMA HALF TX\r\n");
 }
 
 

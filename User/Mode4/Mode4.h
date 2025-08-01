@@ -9,12 +9,14 @@
 #include "tim.h"
 #include "adc.h"
 
-/*-*The SET size of buffer array for each half of DMA*-*/
+/*-*HALF the Number of data to be transferred from ADC peripheral to memory*-*/
 #define ADC_DMA_BUFSIZE 1000
 
 /*-*The MAXIMUM size of buffer array for each half of DMA*-*/
-#define ADC_DMA_BUFSIZE_HALF_MAX       (2000)
+#define ADC_DMA_BUFSIZE_HALF_MAX       (4000)
 #define ADC_DMA_BUFSIZE_FULL_MAX       (2*ADC_DMA_BUFSIZE_HALF_MAX)
+
+#define ADC_RAW_TO_VOLTAGE 0.00005035477f
 
 
 typedef enum {
