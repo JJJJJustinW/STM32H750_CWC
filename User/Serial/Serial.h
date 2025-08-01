@@ -50,7 +50,7 @@ void Screen_SendStrToShow(char *string,uint8_t FB);
 void Screen_SendNum(uint32_t num);
 void Screen_SendNumToShow(uint32_t num);
 
-void print4serial(void);
+uint16_t print4serial(void);
 uint16_t print4screen(void);
 
 #endif

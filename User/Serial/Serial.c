@@ -509,7 +509,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 // }
 
 //SEND THE DATA FROM UART_DEBUG TO BOTH UART_DEBUG and UART_SCREEN
-void print4serial(void) {
+uint16_t print4serial(void) {
+    uint16_t ret_val = 0;
     if (USART_DBG_RX_STA & 0x8000) {
         uart_rx_len = USART_DBG_RX_STA & 0x3fff;
         Serial_printf("\r\nsent data:\r\n");
@@ -526,9 +527,17 @@ void print4serial(void) {
         /*---Send the array to display message---*/
         Screen_SendArrToShow((uint8_t *) USART_DBG_RX_BUF, uart_rx_len,FB_OFF);
         Serial_printf("\r\n");
+
+        if (USART_DBG_RX_BUF[0]==0xFF) {
+            ret_val|=0x0008;
+        }else if(USART_DBG_RX_BUF[0]==0xFE) {
+            ret_val|=0x0004;
+        }
+
         while (__HAL_UART_GET_FLAG(huart_debug, UART_FLAG_TC) != SET);
         USART_DBG_RX_STA = 0;
     }
+    return ret_val;
 }
 
 
@@ -572,6 +581,14 @@ uint16_t print4screen(void) {
         /*---MODE3 SWITCH(OFF)---*/
         else if (USART_SCR_RX_BUF[0]==0xC0) {
             ret_val |= 0x0020;
+        }
+        /*---MODE4 Start Sampling---*/
+        else if (USART_SCR_RX_BUF[0]==0xD1&&USART_SCR_RX_BUF[1]==0x11) {
+            ret_val |= 0x0001;
+        }
+        /*---MODE4 Stop Sampling---*/
+        else if (USART_SCR_RX_BUF[0]==0xDF&&USART_SCR_RX_BUF[1]==0xFF) {
+            ret_val |= 0x0002;
         }
 
 

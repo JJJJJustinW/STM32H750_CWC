@@ -36,14 +36,16 @@ enable_language(C ASM)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME}
-        User/ADC/ADC_Custom.c
-        User/ADC/ADC_Custom.h
+#        User/ADC/ADC_Custom.c
+#        User/ADC/ADC_Custom.h
         User/Mode1/Mode1.c
         User/Mode1/Mode1.h
         User/DDS/AD9959.c
         User/DDS/AD9959.h
         User/Mode3/Mode3.c
         User/Mode3/Mode3.h
+        User/Mode4/Mode4.c
+        User/Mode4/Mode4.h
 )
 
 # Add STM32CubeMX generated sources
@@ -58,7 +60,7 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-        User/ADC/ADC_Custom.c
+#        User/ADC/ADC_Custom.c
         User/Serial/Serial.c
         User/Delay/delay.c
         User/IIC/myiic.c
@@ -67,12 +69,13 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         User/custom_logger/custom_logger.c
         User/Mode1/Mode1.c
         User/Mode3/Mode3.c
+        User/Mode4/Mode4.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-        User/ADC
+#        User/ADC
         User/Serial
         User/Delay
         User/IIC
@@ -81,6 +84,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         User/custom_logger
         User/Mode1
         User/Mode3
+        User/Mode4
 )
 
 # Add project symbols (macros)
