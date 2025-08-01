@@ -22,9 +22,9 @@
 #include "adc.h"
 #include "dac.h"
 #include "dma.h"
+#include "gpio.h"
 #include "tim.h"
 #include "usart.h"
-#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -72,8 +72,8 @@
 /*
 Private var for DDS
 */
-uint32_t CW_fre = 30000000; //CW initial fre
-uint32_t CW_amp = 1023; //CW initial amp
+uint32_t CW_fre = 30000000;//CW initial fre
+uint32_t CW_amp = 1023;    //CW initial amp
 // uint8_t a = 2,b=0,c=2,d=5;//CH455
 
 
@@ -100,28 +100,28 @@ Pins: 	PE2-->LED4(PC6),PE3-->LED5(PC7)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     delay_ms(50);
     if (GPIO_Pin == GPIO_PIN_2) {
-        if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2)) {
+        if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_2)) {
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
             if (led1_status == 0) {
-                Screen_SendStr("led1.val=1",FB_ON); //REMAINDER OF PREVIOUS PIN SETUP
+                Screen_SendStr("led1.val=1", FB_ON);//REMAINDER OF PREVIOUS PIN SETUP
                 led1_status = 1;
             } else {
-                Screen_SendStr("led1.val=0",FB_ON);
+                Screen_SendStr("led1.val=0", FB_ON);
                 led1_status = 0;
             }
-        } //?? PC6
+        }//?? PC6
     } else if (GPIO_Pin == GPIO_PIN_3) {
-        if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_3)) //PE3
+        if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_3))//PE3
         {
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_2);
             if (led2_status == 0) {
-                Screen_SendStr("led2.val=1",FB_ON);
+                Screen_SendStr("led2.val=1", FB_ON);
                 led2_status = 1;
             } else {
-                Screen_SendStr("led2.val=0",FB_ON);
+                Screen_SendStr("led2.val=0", FB_ON);
                 led2_status = 0;
             }
-        } //PC7
+        }//PC7
     }
 }
 
@@ -202,32 +202,25 @@ int main(void) {
     //Serial_printf("\r\nIT_RXNE ENABLED\r\n");
 
     ADC_DMA_Init(
-        &hadda,
-        3.0f,
-        1.5f,
-        0xFFF,
-        0x800,
-        &htim1,
-        240000000,
-        10,
-        &hadc1,
-        &hdac1,
-        DAC_CHANNEL_1,
-        500000,
-        ADC_DMA_BUFSIZE,
-        ADC_DMA_RTFunc,
-        ADC_DMA_HalfTxFunc,
-        ADC_DMA_FullTxFunc
-    );
+            &hadda,
+            3.0f,
+            1.5f,
+            0xFFF,
+            0x800,
+            &htim1,
+            240000000,
+            10,
+            &hadc1,
+            &hdac1,
+            DAC_CHANNEL_1,
+            500000,
+            ADC_DMA_BUFSIZE,
+            ADC_DMA_RTFunc,
+            ADC_DMA_HalfTxFunc,
+            ADC_DMA_FullTxFunc);
 
 
     CUSTOM_LOG_V(V_INFO, "===========INITIALIZATION COMPLETE==========\r\n");
-    // CUSTOM_LOG_V(V_ERROR, "Example log (error)\r\n");
-    // CUSTOM_LOG_V(V_WARN, "Example log (warning)\r\n");
-    // CUSTOM_LOG_V(V_INFO, "Example log (info)\r\n");
-    // CUSTOM_LOG_V(V_DEBUG, "Example log (debug)\r\n");
-    // CUSTOM_LOG("\r\n");
-
 
     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
     delay_ms(150);
@@ -250,7 +243,7 @@ int main(void) {
         /* USER CODE BEGIN 3 */
         //ADC_DMA_Output();
 
-            print4serial();
+        print4serial();
         if (AD_State == ADDA_STATE_IDLE) {
             switch (print4serial()) {
                 case 0x0004: {
@@ -258,10 +251,10 @@ int main(void) {
                     break;
                 }
                 case 0x0002: {
-                    CUSTOM_LOG_V(V_INFO,"SERIAL INFO\r\n");
+                    CUSTOM_LOG_V(V_INFO, "SERIAL INFO\r\n");
                     break;
                 }
-                default: ;
+                default:;
             }
             switch (print4screen()) {
                 /*===MODE1 FREQ OUT===*/
@@ -323,7 +316,7 @@ int main(void) {
                     AD_State = ADDA_STATE_INIT;
                     break;
                 }
-                default: ;
+                default:;
             }
         } else if (AD_State == ADDA_STATE_INIT) {
             ADC_DMA_Start(&hadda);
@@ -336,7 +329,7 @@ int main(void) {
                     CUSTOM_LOG_V(V_INFO, "DMA ENDED\r\n");
                     break;
                 }
-                default: ;
+                default:;
             }
             switch (print4screen()) {
                 case 0x0002: {
@@ -344,10 +337,9 @@ int main(void) {
                     CUSTOM_LOG_V(V_INFO, "DMA ENDED\r\n");
                     break;
                 }
-                default: ;
+                default:;
             }
-        }
-        else if (AD_State == ADDA_STATE_HALTED) {
+        } else if (AD_State == ADDA_STATE_HALTED) {
             ADC_DMA_Stop(&hadda);
             AD_State = ADDA_STATE_IDLE;
         }
@@ -395,9 +387,7 @@ void SystemClock_Config(void) {
 
     /** Initializes the CPU, AHB and APB buses clocks
     */
-    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-                                  | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2
-                                  | RCC_CLOCKTYPE_D3PCLK1 | RCC_CLOCKTYPE_D1PCLK1;
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1 | RCC_CLOCKTYPE_D1PCLK1;
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
@@ -462,11 +452,10 @@ void Error_Handler(void) {
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
-{
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
+void assert_failed(uint8_t *file, uint32_t line) {
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

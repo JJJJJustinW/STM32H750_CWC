@@ -508,12 +508,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 //
 // }
 
-//SEND THE DATA FROM UART_DEBUG TO BOTH UART_DEBUG and UART_SCREEN
+/**
+ * SEND THE DATA FROM UART_DEBUG TO BOTH UART_DEBUG and UART_SCREEN
+ * */
 uint16_t print4serial(void) {
     uint16_t ret_val = 0;
     if (USART_DBG_RX_STA & 0x8000) {
         uart_rx_len = USART_DBG_RX_STA & 0x3fff;
-        Serial_printf("\r\nsent data:\r\n");
+        CUSTOM_LOG(">>>>>> Begin sent data\r\n");
         //		HAL_UART_Transmit(huart_debug,(uint8_t*)USART_RX_BUF,uart_rx_len,1000);  //Original print
 
         Serial_SendArr((uint8_t *) USART_DBG_RX_BUF, uart_rx_len);
@@ -526,7 +528,7 @@ uint16_t print4serial(void) {
 
         /*---Send the array to display message---*/
         Screen_SendArrToShow(USART_DBG_RX_BUF, uart_rx_len,FB_OFF);
-        Serial_printf("\r\n");
+        CUSTOM_LOG("<<<<<<  End  sent data\r\n");
 
         if (USART_DBG_RX_BUF[0]==0xFF) {
             ret_val|=0x0008;
@@ -550,9 +552,9 @@ uint16_t print4screen(void) {
     if (USART_SCR_RX_STA & 0x8000) {
         uart_rx_len = USART_SCR_RX_STA & 0x3fff;
 
-        Serial_printf("data from screen:\r\n");
+        CUSTOM_LOG(">>>>>> Begin data from screen\r\n");
         Serial_SendArr(USART_SCR_RX_BUF, uart_rx_len);
-        Serial_printf("\r\n");
+        CUSTOM_LOG("<<<<<<  End  data from screen\r\n");
 
         /*---MODE1 SETFREQ---*/
         if (USART_SCR_RX_BUF[0] == 0xA8) {

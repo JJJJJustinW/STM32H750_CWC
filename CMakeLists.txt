@@ -25,7 +25,6 @@ set(CMAKE_PROJECT_NAME STM32H750_CWC)
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 set(CMSISCORE "${CMAKE_SOURCE_DIR}/Drivers/CMSIS/")
-add_subdirectory(CMSIS-DSP-1.16.2/Source bin_dsp)
 
 # Core project settings
 project(${CMAKE_PROJECT_NAME})
@@ -54,7 +53,6 @@ add_subdirectory(cmake/stm32cubemx)
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined library search paths
-        CMSIS-DSP-1.16.2
 )
 
 # Add sources to executable
