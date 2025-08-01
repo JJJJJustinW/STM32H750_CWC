@@ -525,13 +525,16 @@ uint16_t print4serial(void) {
         Serial_SendByte_t(0xFF, huart_screen);
 
         /*---Send the array to display message---*/
-        Screen_SendArrToShow((uint8_t *) USART_DBG_RX_BUF, uart_rx_len,FB_OFF);
+        Screen_SendArrToShow(USART_DBG_RX_BUF, uart_rx_len,FB_OFF);
         Serial_printf("\r\n");
 
         if (USART_DBG_RX_BUF[0]==0xFF) {
             ret_val|=0x0008;
         }else if(USART_DBG_RX_BUF[0]==0xFE) {
             ret_val|=0x0004;
+        }
+        else if(USART_DBG_RX_BUF[0]==0x01) {
+            ret_val|=0x0002;
         }
 
         while (__HAL_UART_GET_FLAG(huart_debug, UART_FLAG_TC) != SET);
@@ -548,7 +551,7 @@ uint16_t print4screen(void) {
         uart_rx_len = USART_SCR_RX_STA & 0x3fff;
 
         Serial_printf("data from screen:\r\n");
-        Serial_SendArr((uint8_t *) USART_SCR_RX_BUF, uart_rx_len);
+        Serial_SendArr(USART_SCR_RX_BUF, uart_rx_len);
         Serial_printf("\r\n");
 
         /*---MODE1 SETFREQ---*/
