@@ -33,6 +33,7 @@
 #include "Key2.h"
 
 #include "AD9959.h"
+#include "AD9834.h"
 
 #include "delay.h"
 
@@ -161,7 +162,7 @@ int main(void)
 
     //printf("before TIM\r\n");
     //HAL_TIM_Base_Start(&htim1);//tim1 init
-    //HAL_TIM_Base_Start(&htim2);//tim2 init
+    // HAL_TIM_Base_Start(&htim2);//tim2 init
     // printf("before ADC\r\n");
 
     //HAL_ADC_Start_DMA(&hadc1,g_adc1_dma_data1,ADC_DATA_LENGTH);
@@ -170,16 +171,32 @@ int main(void)
 
     //printf("before delay\r\n");
     delay_init(480);
-    delay_ms(10);
+    delay_ms(100);
 
 
     //Serial_printf("DDS1\r\n");
     Init_AD9959();
     IO_Update();
-    Write_frequence(0, 2000000);
-    Write_Amplitude(0, 100);
+    Write_frequence(0, 200000);
+    Write_Amplitude(0, 700);
     Write_Phase(0, 0);
+    // Write_frequence(2, 2000000);
+    // Write_Amplitude(2, 100);
+    // Write_Phase(2, 0);
+
     //CUSTOM_LOG_V(V_INFO, "DDS2\r\n");
+    // float dac_vol = 0;
+    // uint32_t dac_val = 0;
+    // dac_vol = 1;
+    // dac_val = (uint32_t) (dac_vol / 3.3 * 4095);
+    // CUSTOM_LOG_V(V_INFO,"State:%d\r\n",HAL_DAC_GetState(&hdac1));
+    // HAL_DAC_Start(&hdac1,DAC_CHANNEL_2);
+    // HAL_DAC_SetValue(&hdac1,DAC_CHANNEL_2,DAC_ALIGN_12B_R,dac_val);
+    // CUSTOM_LOG("DAC_VAL:%d\r\n",dac_val);
+    // AD9834_Init();
+    // AD9834_Select_Wave(CONTROL_REGISTER);
+    // AD9834_Set_Freq(FREQ_0,100000);
+
 
 
     __HAL_UART_ENABLE_IT(huart_debug, UART_IT_RXNE);
@@ -206,6 +223,8 @@ int main(void)
 
 
     CUSTOM_LOG_V(V_INFO, "===========INITIALIZATION COMPLETE==========\r\n");
+
+
 
     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
     delay_ms(150);
@@ -262,14 +281,14 @@ int main(void)
                 }
                 case 0x4000: {
                     Mode1_FreqSel(USART_SCR_RX_BUF);
-                    CUSTOM_LOG_V(V_INFO, "%d\r\n", m1_freq);
+                    CUSTOM_LOG_V(V_INFO, "Freq:%d\r\n", m1_freq);
                     break;
                 }
                 /*===MODE2 1kHz_2V_Output===*/
                 case 0x0100: {
                     CUSTOM_LOG("MODE2 ON\r\n");
                     Write_frequence(0, 1000);
-                    Write_Amplitude(0, 147);
+                    Write_Amplitude(0, 145);
                     Write_Phase(0, 0);
                     IO_Update();
                     break;
@@ -285,13 +304,13 @@ int main(void)
                 /*===MODE3 FREQ 1-2V OUTPUT===*/
                 case 0x0040: {
                     Mode3_FreqMagSel(USART_SCR_RX_BUF);
-                    CUSTOM_LOG_V(V_INFO, "%d\r\n", m3_freq);
-                    CUSTOM_LOG_V(V_INFO, "Mag:%lf\r\n", m3_mag);//now outputs analog output requirement.
+                    //CUSTOM_LOG_V(V_INFO, "Freq:%d\r\n", m3_freq);//MIGHT CAUSE PACK LOSS
+                    //CUSTOM_LOG_V(V_INFO, "Mag:%d\r\n", m3_DDS_Out); //now outputs analog output requirement.
                     break;
                 }
                 case 0x0010: {
                     Write_frequence(0, m3_freq);
-                    Write_Amplitude(0, 800);
+                    Write_Amplitude(0, m3_DDS_Out);
                     Write_Phase(0, 0);
                     IO_Update();
                     break;

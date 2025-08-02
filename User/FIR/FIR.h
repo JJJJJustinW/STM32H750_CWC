@@ -17,6 +17,13 @@ typedef struct {
 } FIR_HandleTypeDef;
 
 typedef struct {
+    double freq;
+    double amp;
+    double pha;
+} FreqNode;
+
+
+typedef struct {
     double real;
     double imag;
 } Complex;

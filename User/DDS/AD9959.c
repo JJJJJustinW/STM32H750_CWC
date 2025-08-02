@@ -15,17 +15,17 @@
 //-----------------------------------------------------------------
 #include "AD9959.h"
 
-#define CS_PIN GPIO_PIN_9
-#define SCLK_PIN GPIO_PIN_7
-#define SDIO0_PIN GPIO_PIN_0
-#define UPDATE_PIN GPIO_PIN_4
-#define RESET_PIN GPIO_PIN_6
+#define CS_PIN GPIO_PIN_3
+#define SCLK_PIN GPIO_PIN_4
+#define SDIO0_PIN GPIO_PIN_5
+#define UPDATE_PIN GPIO_PIN_6
+#define RESET_PIN GPIO_PIN_7
 #define GPIO_PORT GPIOD
-#define CS_PORT GPIOE
-#define SCLK_PORT GPIOE
-#define SDIO0_PORT GPIOB
-#define UPDATE_PORT GPIOC
-#define RESET_PORT GPIOA
+#define CS_PORT GPIOD
+#define SCLK_PORT GPIOD
+#define SDIO0_PORT GPIOD
+#define UPDATE_PORT GPIOD
+#define RESET_PORT GPIOD
 
 u8 CSR_DATA0[1] = {0x10}; // 开 CH0
 u8 CSR_DATA1[1] = {0x20}; // 开 CH1

@@ -552,9 +552,9 @@ uint16_t print4screen(void) {
     if (USART_SCR_RX_STA & 0x8000) {
         uart_rx_len = USART_SCR_RX_STA & 0x3fff;
 
-        CUSTOM_LOG(">>>>>> Begin data from screen\r\n");
+        Serial_printf(">>>>>> Begin data from screen\r\n");
         Serial_SendArr(USART_SCR_RX_BUF, uart_rx_len);
-        CUSTOM_LOG("\r\n<<<<<<  End  data from screen\r\n");
+        Serial_printf("\r\n<<<<<<  End  data from screen\r\n");
 
         /*---MODE1 SETFREQ---*/
         if (USART_SCR_RX_BUF[0] == 0xA8) {

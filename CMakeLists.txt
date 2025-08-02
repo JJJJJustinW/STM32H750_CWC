@@ -47,6 +47,8 @@ add_executable(${CMAKE_PROJECT_NAME}
         User/Mode4/Mode4.h
         User/FIR/FIR.c
         User/FIR/FIR.h
+        User/AD9834/AD9834.C
+        User/AD9834/AD9834.h
 )
 
 # Add STM32CubeMX generated sources
@@ -71,6 +73,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         User/Mode3/Mode3.c
         User/Mode4/Mode4.c
         User/FIR/FIR.c
+        User/AD9834/AD9834.C
 )
 
 # Add include paths
@@ -87,6 +90,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         User/Mode3
         User/Mode4
         User/FIR
+        User/AD9834
 )
 
 # Add project symbols (macros)
