@@ -49,6 +49,8 @@ add_executable(${CMAKE_PROJECT_NAME}
         User/FIR/FIR.h
         User/AD9834/AD9834.C
         User/AD9834/AD9834.h
+        User/FType/FType.c
+        User/FType/FType.h
 )
 
 # Add STM32CubeMX generated sources

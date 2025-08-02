@@ -288,7 +288,7 @@ int main(void)
                 case 0x0100: {
                     CUSTOM_LOG("MODE2 ON\r\n");
                     Write_frequence(0, 1000);
-                    Write_Amplitude(0, 145);
+                    Write_Amplitude(0, 170);
                     Write_Phase(0, 0);
                     IO_Update();
                     break;

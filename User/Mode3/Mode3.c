@@ -15,7 +15,7 @@ uint16_t m3_dig_to_analog = 1900;
 
 void Mode3_FreqMagSel(const uint8_t *input) {
     m3_freq = (input[1] << 0) + (input[2] << 8) + (input[3] << 16) + (input[4] << 24);
-    uint8_t tgt_mag = input[5];
+    uint8_t tgt_mag = input[5]-10;
     switch (m3_freq) {
         case 100:
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.4)*0.0014)*tgt_mag / 10.0 * 46.36364);
@@ -45,22 +45,22 @@ void Mode3_FreqMagSel(const uint8_t *input) {
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.77)*0.0013)*tgt_mag / 10.0 * 75.83333);
             break;
         case 1000:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.8)*0.0013)*tgt_mag / 10.0 * 82.59831);//1.3?
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.8)*0.0013)*tgt_mag / 10.0 * 82.59831);
             break;
         case 1100:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.83)*0.0013)*tgt_mag / 10.0 * 89.16667);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.73)*0.0013)*tgt_mag / 10.0 * 89.16667);
             break;
         case 1200:
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.86)*0.0013)*tgt_mag / 10.0 * 97.45763);
             break;
         case 1300:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.88)*0.0013)*tgt_mag / 10.0 * 106.9565);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.88)*0.0013)*tgt_mag / 10.0 * 105.3565);
             break;
         case 1400:
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.9)*0.0013)*tgt_mag / 10.0 * 111.8644);
             break;
         case 1500:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.9)*0.0014)*tgt_mag / 10.0 * 117.5);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.2)*0.00145)*tgt_mag / 10.0 * 117.5);
             break;
         case 1600:
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 125.8333);
@@ -69,43 +69,43 @@ void Mode3_FreqMagSel(const uint8_t *input) {
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 133.3333);
             break;
         case 1800:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 142.8571);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 141.5571);
             break;
         case 1900:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 155.1724);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 150.0724);
             break;
         case 2000:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 160.5042);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-15.5)*0.0014)*tgt_mag / 10.0 * 157.5042);
             break;
         case 2100:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 178.7611);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 165.7611);
             break;
         case 2200:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 177.5);//!
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 174.5);
             break;
         case 2300:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 186.6667);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 181.6667);
             break;
         case 2400:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 195.0413);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.0)*0.0014)*tgt_mag / 10.0 * 190.0413);
             break;
         case 2500:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 203.2787);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 199.2787);
             break;
         case 2600:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 208.0);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.0)*0.0014)*tgt_mag / 10.0 * 208.0);
             break;
         case 2700:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 221.9512);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 217.9512);
             break;
         case 2800:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 229.8387);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 226.8387);
             break;
         case 2900:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 237.3016);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 235.3016);
             break;
         case 3000:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 251.6129);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 244.6129);
             break;
         default:
             m3_mag = ((10 - (2 - tgt_mag / 10.0) * (1.02 - 0.05 * pow((1.5 - m3_freq / 1000.0), 2))) * 0.1) * tgt_mag /
