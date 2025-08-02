@@ -8,7 +8,7 @@ UART_HandleTypeDef *huart_debug = &huart5; ///< Debug����
 UART_HandleTypeDef *huart_screen = &huart1;
 
 uint8_t tmp_Byte = 0; //Used to avoid empty pointer
-
+//TODO: FIX THE ISSUE WHERE THE SCREEN SHOWS ITS OWN COMMANDS
 
 //////////////////////////////////////////////////////////////////////
 /*---------------------------UART SEND------------------------------*/
@@ -552,9 +552,9 @@ uint16_t print4screen(void) {
     if (USART_SCR_RX_STA & 0x8000) {
         uart_rx_len = USART_SCR_RX_STA & 0x3fff;
 
-        Serial_printf(">>>>>> Begin data from screen\r\n");
+        //Serial_printf(">>>>>> Begin data from screen\r\n");
         Serial_SendArr(USART_SCR_RX_BUF, uart_rx_len);
-        Serial_printf("\r\n<<<<<<  End  data from screen\r\n");
+        //Serial_printf("\r\n<<<<<<  End  data from screen\r\n");
 
         /*---MODE1 SETFREQ---*/
         if (USART_SCR_RX_BUF[0] == 0xA8) {

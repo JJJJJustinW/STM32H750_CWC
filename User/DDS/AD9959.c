@@ -34,7 +34,7 @@ u8 CSR_DATA3[1] = {0x80}; // 开 CH3
 
 // AD9959参考时钟25MHz,开20倍频，到主频500MHz工作
 
-u8 FR1_DATA[3] = {0xD0, 0x00, 0x00}; // 20倍频
+u8 FR1_DATA[3] = {0x04, 0x00, 0x00}; // 20倍频
 // u8 FR2_DATA[2] = {0x00,0x00};//default Value = 0x0000
 u8 FR2_DATA[2] = {0x20, 0x00};       // default Value = 0x0000
 u8 CFR_DATA[3] = {0x00, 0x03, 0x02}; // default Value = 0x000302
@@ -137,7 +137,7 @@ void Write_frequence(uint8_t Channel, uint32_t Freq)
 {
     u8 CFTW0_DATA[4] = {0x00, 0x00, 0x00, 0x00}; // 中间变量
     u32 Temp;
-    Temp = (u32)Freq * 8.589934592; // 将输入频率因子分为四个字节  8.589934592=(2^32)/500000000
+    Temp = (u32)Freq *171.7986918; // 将输入频率因子分为四个字节  8.589934592=(2^32)/500000000
 
     CFTW0_DATA[3] = (u8)Temp;
     CFTW0_DATA[2] = (u8)(Temp >> 8);

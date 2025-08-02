@@ -18,22 +18,22 @@ void Mode3_FreqMagSel(const uint8_t *input) {
     uint8_t tgt_mag = input[5];
     switch (m3_freq) {
         case 100:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 46.36364);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.4)*0.0014)*tgt_mag / 10.0 * 46.36364);
             break;
         case 200:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.6)*0.00138)*tgt_mag / 10.0 * 46.08696);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.6)*0.00138)*tgt_mag / 10.0 * 45.98696);
             break;
         case 300:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.6)*0.00135)*tgt_mag / 10.0 * 50.90909);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-17.9)*0.00137)*tgt_mag / 10.0 * 48.0);
             break;
         case 400:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.6)*0.00132)*tgt_mag / 10.0 * 50.0);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-17.9)*0.00137)*tgt_mag / 10.0 * 50.2);
             break;
         case 500:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.62)*0.00131)*tgt_mag / 10.0 * 54.16667);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-18.3)*0.00131)*tgt_mag / 10.0 * 54.16667);
             break;
         case 600:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.7)*0.0013)*tgt_mag / 10.0 * 59.166667);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.6)*0.0013)*tgt_mag / 10.0 * 59.166667);
             break;
         case 700:
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.72)*0.0013)*tgt_mag / 10.0 * 66.95652);
@@ -45,22 +45,22 @@ void Mode3_FreqMagSel(const uint8_t *input) {
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.77)*0.0013)*tgt_mag / 10.0 * 75.83333);
             break;
         case 1000:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.8)*0.0013)*tgt_mag / 10.0 * 83.89831);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.8)*0.0013)*tgt_mag / 10.0 * 82.59831);//1.3?
             break;
         case 1100:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.83)*0.0014)*tgt_mag / 10.0 * 89.16667);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.83)*0.0013)*tgt_mag / 10.0 * 89.16667);
             break;
         case 1200:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.86)*0.0014)*tgt_mag / 10.0 * 97.45763);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.86)*0.0013)*tgt_mag / 10.0 * 97.45763);
             break;
         case 1300:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.88)*0.0014)*tgt_mag / 10.0 * 106.9565);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.88)*0.0013)*tgt_mag / 10.0 * 106.9565);
             break;
         case 1400:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.9)*0.0014)*tgt_mag / 10.0 * 111.8644);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.9)*0.0013)*tgt_mag / 10.0 * 111.8644);
             break;
         case 1500:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 117.5);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.9)*0.0014)*tgt_mag / 10.0 * 117.5);
             break;
         case 1600:
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 125.8333);
@@ -81,7 +81,7 @@ void Mode3_FreqMagSel(const uint8_t *input) {
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 178.7611);
             break;
         case 2200:
-            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 177.5);
+            m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 177.5);//!
             break;
         case 2300:
             m3_DDS_Out = (uint16_t) round((1+(tgt_mag-16.5)*0.0014)*tgt_mag / 10.0 * 186.6667);
