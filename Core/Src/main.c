@@ -35,7 +35,6 @@
 #include "Key2.h"
 
 #include "AD9959.h"
-#include "AD9834.h"
 
 #include "delay.h"
 
@@ -194,18 +193,6 @@ int main(void) {
     // Write_Amplitude(2, 100);
     // Write_Phase(2, 0);
 
-    //CUSTOM_LOG_V(V_INFO, "DDS2\r\n");
-    // float dac_vol = 0;
-    // uint32_t dac_val = 0;
-    // dac_vol = 1;
-    // dac_val = (uint32_t) (dac_vol / 3.3 * 4095);
-    // CUSTOM_LOG_V(V_INFO,"State:%d\r\n",HAL_DAC_GetState(&hdac1));
-    // HAL_DAC_Start(&hdac1,DAC_CHANNEL_2);
-    // HAL_DAC_SetValue(&hdac1,DAC_CHANNEL_2,DAC_ALIGN_12B_R,dac_val);
-    // CUSTOM_LOG("DAC_VAL:%d\r\n",dac_val);
-    // AD9834_Init();
-    // AD9834_Select_Wave(CONTROL_REGISTER);
-    // AD9834_Set_Freq(FREQ_0,100000);
 
 
     __HAL_UART_ENABLE_IT(huart_debug, UART_IT_RXNE);
