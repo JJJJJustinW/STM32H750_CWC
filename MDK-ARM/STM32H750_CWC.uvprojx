@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_PWR_LDO_SUPPLY,USE_HAL_DRIVER,STM32H750xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/CH455;..\User\DDS;../User/Delay;../User/DoubleKeys;../User/IIC;../User/Serial;..\User\custom_logger;..\User\Mode1;..\User\Mode3;..\User\Mode4;..\User\AD9834</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\User\DDS;../User/Delay;../User/DoubleKeys;../User/Serial;..\User\custom_logger;..\User\Mode1;..\User\Mode3;..\User\FType;..\User\Scan</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -580,11 +580,6 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>myiic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\IIC\myiic.c</FilePath>
-            </File>
-            <File>
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Serial\Serial.c</FilePath>
@@ -598,11 +593,6 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Delay\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>ch455.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\CH455\ch455.c</FilePath>
             </File>
             <File>
               <FileName>custom_logger.c</FileName>
@@ -630,9 +620,14 @@
               <FilePath>..\User\DDS\AD9959.c</FilePath>
             </File>
             <File>
-              <FileName>AD9834.c</FileName>
+              <FileName>FType.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\AD9834\AD9834.c</FilePath>
+              <FilePath>..\User\FType\FType.c</FilePath>
+            </File>
+            <File>
+              <FileName>scan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Scan\scan.c</FilePath>
             </File>
           </Files>
         </Group>

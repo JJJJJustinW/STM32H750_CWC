@@ -588,11 +588,11 @@ uint16_t print4screen(void) {
             ret_val |= 0x0020;
         }
         /*---MODE4 Start Sampling---*/
-        else if (USART_SCR_RX_BUF[0]==0xD1&&USART_SCR_RX_BUF[1]==0x11) {
+        else if (USART_SCR_RX_BUF[0]==0xD1) {
             ret_val |= 0x0001;
         }
         /*---MODE4 Stop Sampling---*/
-        else if (USART_SCR_RX_BUF[0]==0xDF&&USART_SCR_RX_BUF[1]==0xFF) {
+        else if (USART_SCR_RX_BUF[0]==0xDF) {
             ret_val |= 0x0002;
         }
 
