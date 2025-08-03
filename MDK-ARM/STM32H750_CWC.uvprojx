@@ -610,11 +610,6 @@
               <FilePath>..\User\Mode3\Mode3.c</FilePath>
             </File>
             <File>
-              <FileName>Mode4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Mode4\Mode4.c</FilePath>
-            </File>
-            <File>
               <FileName>AD9959.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\DDS\AD9959.c</FilePath>

@@ -18,8 +18,12 @@ void FIR_Init(
     fir1->buffer=(double*)calloc(length,sizeof(double));
     fir1->buf_index=0;
 
+}
+
+void FIR_Complexize(Complex *FreqResp) {
+
     /*-*---F_Response in complex form---*-*/
-    Complex *freq_response=(Complex*)calloc(length,sizeof(Complex));
+    FreqResp=
 
     double phase=0;
     // FreqNode *f[];

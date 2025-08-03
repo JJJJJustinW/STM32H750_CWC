@@ -10,9 +10,9 @@ ADC_DMA_STATE AD_State = ADDA_STATE_IDLE;
 
 // === Sweep parameter table ===
 const SweepSegment sweep_table[] = {
-    {100,     1000,     100,  0.4f, 0.2f},
-    {1000,    10000,    100,  0.4f, 0.2f},
-    {10000,   100000,   100,  0.4f, 0.2f},
+    {100,     900,     100,  0.4f, 0.2f},
+    {1000,    9900,    100,  0.4f, 0.2f},
+    {10000,   99900,   100,  0.4f, 0.2f},
     {100000,  1000000,  100,  0.4f, 0.2f}
 };
 const int sweep_segment_count = sizeof(sweep_table) / sizeof(SweepSegment);
@@ -174,7 +174,8 @@ void Sweep_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
             current_segment++;
             if (current_segment >= sweep_segment_count) {
                 sweep_state = SWEEP_STATE_DONE;
-                Sweep_PrintResults();
+                // Sweep_PrintResults();
+                AD_State=ADDA_STATE_HALTED;
                 return;
             }
             current_freq = sweep_table[current_segment].start_freq;
@@ -189,18 +190,5 @@ void Sweep_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 
 
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-    if (htim->Instance == TIM4) {
-        // CUSTOM_LOG_V(V_INFO, "===========tim4==========\r\n");
-        Sweep_TIM_IRQHandler();  // 1us ????????
-    }
-}
-
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
-{
-    Sweep_ADC_ConvCpltCallback(hadc);
-
-}
 
 

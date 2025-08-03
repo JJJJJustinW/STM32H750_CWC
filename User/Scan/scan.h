@@ -61,4 +61,6 @@ void Sweep_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc);
 // Optional: user-defined callback to process result per frequency
 void Process_Sweep_Result(uint32_t freq_hz, float avg_val);
 
+
+
 #endif  // __SCAN_H
